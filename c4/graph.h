@@ -4,6 +4,7 @@
 #include <iterator>
 #include <iostream>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -30,8 +31,43 @@ class Digraph{
 		void edge(T vval, T eval);
 		void display();
 		void DFS(GraphNode<T, max_size> r, vector<GraphNode<T, max_size>> &q);
-		void BFS(GraphNode<T, max_size> r);
+		void BFS(GraphNode<T, max_size> r, vector<GraphNode<T, max_size>> &q);
+		void clearPath();
 };
+
+template<class T, int max_size>
+void Digraph<T, max_size>::clearPath(){
+	typename list<GraphNode<T, max_size>>::iterator itr;
+	for (int i=0; i<count; i++){
+		for (itr = adjecents[i].begin(); itr != adjecents[i].end(); itr++)
+			itr->visited = false;
+	}
+}
+
+template<class T, int max_size>
+void Digraph<T, max_size>::BFS(GraphNode<T, max_size> r, vector<GraphNode<T, max_size>> &q){
+	queue<GraphNode<T, max_size>> que;
+	typename list<GraphNode<T, max_size>>::iterator itr;
+	if (adjecents[r.index].begin() == adjecents[r.index].end())
+		return;
+	adjecents[r.index].front().visited = true;
+	que.push(adjecents[r.index].front());
+
+	while (!que.empty()){
+		GraphNode<T, max_size> rr = que.front();
+		q.push_back(rr);
+		que.pop();
+		itr = adjecents[rr.index].begin();
+		if (adjecents[rr.index].begin() == adjecents[rr.index].end())
+			continue;
+		for (itr++; itr != adjecents[rr.index].end(); itr++){
+			if (adjecents[itr->index].front().visited == false){
+				adjecents[itr->index].front().visited = true;
+				que.push(adjecents[itr->index].front());
+			}
+		}
+	}
+}
 
 template<class T, int max_size>
 void Digraph<T, max_size>::DFS(GraphNode<T, max_size> r, vector<GraphNode<T, max_size>> &q){

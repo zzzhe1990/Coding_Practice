@@ -1,5 +1,5 @@
 #include <iostream>
-#include "designClass.h"
+#include "graph.h"
 const int MAX_SIZE = 100;
 
 bool ifConnected(Digraph<int, MAX_SIZE> &c4, GraphNode<int, MAX_SIZE> v1, GraphNode<int, MAX_SIZE> v2){
@@ -31,7 +31,8 @@ int main(int argc, char**argv){
 	c4.edge(1, 3);		
 	c4.edge(3, 0);		
 	c4.edge(3, 1);		
-	c4.edge(3, 2);		
+	c4.edge(3, 2);
+	c4.edge(2, 4);		
 
 	c4.display();
 
@@ -48,7 +49,9 @@ int main(int argc, char**argv){
 	cout << endl;
 
 	q.clear();
-	c4.DFS(GraphNode<int, MAX_SIZE>(4, 4), q);
+
+	c4.clearPath();
+	c4.BFS(GraphNode<int, MAX_SIZE>(1, 1), q);
 	
 	for(itr = q.begin(); itr != q.end(); itr++){
 		cout << itr->value << " ";
