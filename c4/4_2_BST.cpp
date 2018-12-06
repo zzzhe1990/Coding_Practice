@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iterator>
 #include "tree.h"
 
 using namespace std;
@@ -14,7 +15,7 @@ int main(){
 
 	bst.createMinHightTree(arr, 0, 14, bst.root);
 	bst.displayTree();
-	
+
 	delete[] arr;
 	
 	return 0;

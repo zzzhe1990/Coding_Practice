@@ -76,8 +76,22 @@ void Tree::createMinHightTree(int* arr, int begin, int end, TreeNode* &p){
 	createMinHightTree(arr, mid+1, end, p->right);
 }
 
+void Tree::preOrder(TreeNode* &p){
+	if (p != NULL){
+		;
+		preOrder(p->left);
+		preOrder(p->right);
+	}
+}
 
-
+void Tree::createLvlLinkedList(TreeNode* p, int lvl, list<TreeNode> *arr){
+	if (p != NULL){
+		arr[lvl].push_back(p->val);
+		lvl++;
+		createLvlLinkedList(p->left, lvl, arr);
+		createLvlLinkedList(p->right, lvl, arr);
+	}
+}
 
 
 
