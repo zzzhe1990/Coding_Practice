@@ -1,6 +1,7 @@
 #ifndef _TREE__H
 #define _TREE__H
 #include <list>
+#include <cmath>
 using namespace std;
 
 template<typename T>
@@ -29,6 +30,8 @@ public:
 	void createMinHightTree(int *arr, int begin, int end, TreeNode* &p);
 	void preOrder(TreeNode* &p);
 	void createLvlLinkedList(TreeNode* p, int level, list<TreeNode> *arr);
+	int getHeight(TreeNode *p, int &bal);
+	bool valBST(TreeNode *p, int min, int max);
 };
 
 template<typename T>

@@ -93,9 +93,35 @@ void Tree::createLvlLinkedList(TreeNode* p, int lvl, list<TreeNode> *arr){
 	}
 }
 
+int Tree::getHeight(TreeNode *p, int &bal){
+	int height;
+	int lf, rh;
+	if (p == NULL){
+		return -1;
+	}	
+	lf = getHeight(p->left, bal);
+	rh = getHeight(p->right, bal);
+	
+	if ( abs(lf - rh) > 1 )
+		bal = -99;
+	
+	height = max(lf, rh) + 1;
+	return height;
+}
 
-
-
+bool Tree::valBST(TreeNode *p, int min, int max){
+	if (p == NULL)
+		return true;
+	if ( p->val < min || p->val > max){
+		return false;
+	}
+	else{
+		bool lf, rh;
+		lf = valBST(p->left, min, p->val);
+		rh = valBST(p->right, p->val+1, max);
+		return (lf && rh);
+	}	
+}
 
 
 
