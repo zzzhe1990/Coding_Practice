@@ -49,7 +49,7 @@ void printBits(int num, int size){
 int len(int num){
 	int len = 0;
 	while (num > 0){
-		num = num / 2;
+		num = num >> 1;
 		len++;
 	}
 
