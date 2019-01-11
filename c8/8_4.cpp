@@ -21,30 +21,40 @@ void SET::print(){
 	cout << "]" << endl;
 }
 
-void subset(int* arr, int end, vector<SET> &allsets){
+void subset(int* arr, int end, vector<SET*> &allsets){
 	if (end < 0){
-		SET tmp(1);
-		tmp.list[0] = -1;
+		SET* tmp = new SET(1);
+		tmp->list[0] = -1;
 		allsets.push_back(tmp);
 	}
 	else{
 		subset(arr, end-1, allsets);
-		vector<SET>::iterator itr = allsets.begin();
-		for (; itr < allsets.end(); itr++){
-			SET tmp(itr->s() + 1);
-			for (int i=0; i<itr->s(); i++){
-				tmp.list[i] = itr->list[i];
+/*		vector<SET*>::iterator itr = allsets.begin();
+		vector<SET*>::iterator itrend = allsets.end();
+		for (; itr != itrend; itr++){
+			SET* tmp = new SET((*itr)->s() + 1);
+			for (int i=0; i<(*itr)->s(); i++){
+				tmp->list[i] = (*itr)->list[i];
 			}	
-			tmp.list[itr->s()] = arr[end];
+			tmp->list[(*itr)->s()] = arr[end];
+			allsets.push_back(tmp);
+*/
+		int tmpsize = allsets.size();
+		for (int j = 0; j < tmpsize; j++){
+			SET* tmp = new SET(allsets[j]->s() + 1);
+			for (int i=0; i<allsets[j]->s(); i++){
+				tmp->list[i] = allsets[j]->list[i];
+			}	
+			tmp->list[allsets[j]->s()] = arr[end];
 			allsets.push_back(tmp);
 		}
 	}
 }
 
-void printset(vector<SET> &allsets){
+void printset(vector<SET*> &allsets){
 	cout << "All subsets: ";
 	for (int i=0; i<allsets.size(); i++){
-		allsets[i].print();
+		allsets[i]->print();
 		cout << ", ";
 	}
 }
@@ -65,7 +75,7 @@ int main(int argc, char* argv[]){
 	}
 	cout << "]" << endl;
 
-	vector<SET> allsets;
+	vector<SET*> allsets;
 
 	subset(arr, size-1, allsets);	
 
