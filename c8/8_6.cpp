@@ -37,19 +37,22 @@ void hanoi(stack<int> &s1, stack<int> &s2, stack<int> &s3){
 
 void printstacks(stack<int> &s1, stack<int> &s2, stack<int> &s3){
 	cout << "s1: ";
-	for (int i=0; i<s1.size(); i++){
+	int size = s1.size();
+	for (int i=0; i<size; i++){
 		cout << s1.top() << " ";
 		s1.pop();
 	}
 	cout << endl;
+	size = s2.size();
 	cout << "s2: ";
-	for (int i=0; i<s2.size(); i++){
+	for (int i=0; i<size; i++){
 		cout << s2.top() << " ";
 		s2.pop();
 	}
 	cout << endl;
+	size = s3.size();
 	cout << "s3: ";
-	for (int i=0; i<s3.size(); i++){
+	for (int i=0; i<size; i++){
 		cout << s3.top() << " ";
 		s3.pop();
 	}
