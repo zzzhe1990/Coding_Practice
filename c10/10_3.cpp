@@ -8,10 +8,11 @@ using namespace std;
 class ARRAY{
 	private:
 		int s;
-		int* arr;
+		int* arra;
+		int* arrb;
 	public:
-		ARRAY(int size):s(size){arr = new int[s];}
-		~ARRAY(){delete[] arr;}
+		ARRAY(int size):s(size){arra = new int[s]; arrb = new int[s];}
+		~ARRAY(){delete[] arra; delete[] arrb;}
 		void create();
 		void printarr(string s);
 		void rotarr(int offset);
@@ -24,53 +25,58 @@ bool func(int a, int b){return a<b;}
 void ARRAY::create(){
 //	srand(time(NULL));
 	for (int i=0; i<s; i++)
-		arr[i] = rand()%(s*3);
+		arra[i] = rand()%(s*3);
 }
 
 void ARRAY::printarr(string str){
 	cout << str << ": ";
 	for (int i=0; i<s; i++)
-		cout << arr[i] << " ";
+		cout << arra[i] << " ";
 	cout << endl;
 }
 
 void ARRAY::rotarr(int offset){
-	int idx = 0, next;
-	int tmpa = arr[idx], tmpb;
+//	int idx = 0, next;
+//	int tmpa = arr[idx], tmpb;
+	int next;
 	for (int i=0; i<s; i++){
-		next = (idx + offset) % s;
-		tmpb = arr[next];
-		arr[next] = tmpa;
-		tmpa = tmpb;
-		idx = next;
+		next = (i + offset) % s;
+//		tmpb = arr[next];
+//		arr[next] = tmpa;
+//		tmpa = tmpb;
+//		idx = next;
+		arrb[next] = arra[i];
 	}
+	int* tmp = arra;
+	arra = arrb;
+	arrb = tmp;
 }
 
 void ARRAY::sortarr(bool (*func)(int, int)){
-	sort(arr, arr+s, func);
+	sort(arra, arra+s, func);
 }
 
 int ARRAY::find(int tar, int l, int r){
 	int mid = (l+r)/2;
 	if (r < l)
 		return -1;
-	if (arr[mid] == tar)
+	if (arra[mid] == tar)
 		return mid;	
 	else{
-		if (arr[l] < arr[mid]){
-			if (arr[l] <= tar && tar <= arr[l])
+		if (arra[l] < arra[mid]){
+			if (arra[l] <= tar && tar <= arra[l])
 				return find(tar, l, mid-1);
 			else
 				return find(tar, mid+1, r);
 		}
-		else if (arr[l] > arr[mid]){
-			if (arr[mid] <= tar && tar <= arr[r])
+		else if (arra[l] > arra[mid]){
+			if (arra[mid] <= tar && tar <= arra[r])
 				return find(tar, mid+1, r);
 			else
 				return find(tar, l, mid-1);
 		}	
-		else if (arr[l] == arr[mid]){
-			if (arr[mid] != arr[r]){
+		else if (arra[l] == arra[mid]){
+			if (arra[mid] != arra[r]){
 				return find(tar, mid+1, r);
 			}
 			else{
